@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>BOTTONI CON EVENTI</title>
+
+    <style>
+        .modifica {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        button,
+        .colore,
+        input,
+        .select {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 8px;
+        }
+
+        .colore {
+            background-color: black;
+            color: white;
+            align-items: center;
+        }
+
+
+        h1 {
+            text-align: center;
+            font-size: 120px;
+        }
+
+        .griglia {
+            display: grid;
+            grid-template-columns: repeat(9, 50px);
+            grid-template-rows: repeat(9, 50px);
+            gap: 2px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .cella {
+            width: 50px;
+            height: 50px;
+            background-color: rgb(207, 205, 205);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+        }
+
+        .rosso {
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1 id="coloreTitolo"> titolo</h1>
+    <div class="modifica">
+        <button id="btn1">cliccami due volte e vedi cosa succede!</button>
+        <div class="colore" id="passaMouse">passa sopra con il mouse</div>
+        <input id="sfondo" placeholder="scrivi una parola speciale...">
+        <select id="colorSelect">
+            <option value="">-- Seleziona un colore --</option>
+            <option value="red">Rosso</option>
+            <option value="blue">Blu</option>
+            <option value="green">Verde</option>
+            <option value="purple">Viola</option>
+            <option value="orange">Arancione</option>
+        </select>
+        <input id="obbligo" type="text" placeholder="Campo obbligatorio...">
+        <p id="messaggio"></p>
+
+        <div class="autocomplete-container">
+            <input type="text" id="autocomplete-input" placeholder="Inizia a scrivere...">
+            <div class="suggestions" id="suggestions-box"></div>
+        </div>
+
+    </div>
+    <div class="griglia" id="griglia"></div>
+
+
+    <script>
+
+        let bottone = document.getElementById("btn1");
+        let cambiaSfondo = document.getElementById("passaMouse");
+        let speciale = document.getElementById("sfondo");
+        let laSeletion = document.getElementById("colorSelect");
+        let laSeletionTito = document.getElementById("coloreTitolo");
+        let nuovaTextbox = document.getElementById("obbligo");
+
+        let griglia = document.getElementById("griglia");
+        let celle = [];
+
+        for (let i = 0; i < 9; i++) {
+            let riga = [];
+            for (let j = 0; j < 9; j++) {
+                let cella = document.createElement("div");
+                cella.classList.add("cella");
+                griglia.appendChild(cella);
+                riga.push(cella);
+            }
+            celle.push(riga);
+        }
+
+
+        bottone.addEventListener("dblclick", () => {
+
+            alert("ALLERTA METEOOOOOO");
+
+        });
+
+        cambiaSfondo.addEventListener("mouseenter", () => {
+
+            cambiaSfondo.style.backgroundColor = "yellow";
+            cambiaSfondo.style.color = "green";
+
+        });
+
+        cambiaSfondo.addEventListener("mouseleave", () => {
+            cambiaSfondo.style.backgroundColor = "black";
+            cambiaSfondo.style.color = "white";
+        });
+
+        speciale.addEventListener("blur", () => {
+
+            if (speciale.value == "blu") {
+                document.body.style.backgroundColor = "blue";
+            } else {
+                document.body.style.backgroundColor = "";
+            }
+
+        });
+
+        laSeletion.addEventListener("change", () => {
+
+            let selezionato = laSeletion.value;
+
+            if (selezionato !== "") {
+
+                laSeletionTito.style.color = selezionato;
+
+            } else {
+                laSeletionTito.style.color = "black";
+            }
+
+        });
+
+        nuovaTextbox.addEventListener("focus", () => {
+
+            nuovaTextbox.style.border = "10px solid blue";
+        });
+
+        nuovaTextbox.addEventListener("blur", () => {
+
+            if (nuovaTextbox.value.trim() == "") {
+                let messaggio = document.getElementById("messaggio");
+                messaggio.textContent = "attenzione, campo obbligatorio";
+            }
+        });
+
+        nuovaTextbox.addEventListener("input", () => {
+
+            messaggio.textContent = "";
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>
